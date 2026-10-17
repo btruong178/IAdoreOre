@@ -2,10 +2,14 @@ package io.github.btruong.iadoreore;
 
 import net.fabricmc.api.ModInitializer;
 
+import net.fabricmc.fabric.api.creativetab.v1.CreativeModeTabEvents;
 import net.minecraft.resources.Identifier;
 
+import net.minecraft.world.item.CreativeModeTabs;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+
+import io.github.btruong.iadoreore.items.ModItems;
 
 public class IAdoreOre implements ModInitializer {
 	public static final String MOD_ID = "iadoreore";
@@ -20,6 +24,10 @@ public class IAdoreOre implements ModInitializer {
 		// This code runs as soon as Minecraft is in a mod-load-ready state.
 		// However, some things (like resources) may still be uninitialized.
 		// Proceed with mild caution.
+		ModItems.initialize();
+		// Add the Super Stick to the ingredients creative tab.
+		CreativeModeTabEvents.modifyOutputEvent(CreativeModeTabs.INGREDIENTS)
+				.register((creativeTab) -> creativeTab.accept(ModItems.SUPER_STICK));
 
 		LOGGER.info("Hello Fabric world!");
 	}
